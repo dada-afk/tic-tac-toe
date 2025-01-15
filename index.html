@@ -3,18 +3,19 @@
 <html lang="en">
 
     <head>
+        <meta charset="UTF-8">
         <link rel="stylesheet" href="index.css">
     </head>
 
     <body>
         <div id="view">
-            <h1>TIC-TAC-TOE</h1>
+            <h1><span class="pink">TIC</span>-TAC-<span class="yellow">TOE</span></h1>
             <div class="flex-wrapper">
                 <h2 id="score-el">Score: 
-                    <span class="blue">X</span> - <span id="x-score"></span>
+                    <span class="pink">X</span> - <span id="x-score"></span>
                     <span class="yellow">O</span> - <span id="o-score"></span>
                 </h2>
-                <button class="btn" id="clear-btn">CLEAR</button>
+                <button class="btn" id="clear-btn">CLEAR SCORE</button>
             </div>
             
             <div id="container">
@@ -37,7 +38,7 @@
         <div id="popup-el">
             <button id="popup-close">&times;</button>
             <div class="flex-wrapper">
-                <p id="winner-el">Placeholder</p>
+                <p id="winner-el"></p>
             </div>
         </div>
         

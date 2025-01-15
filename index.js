@@ -1,3 +1,5 @@
+"use strict";
+
 const squares = document.getElementsByClassName("square");
 
 const newGameBtn = document.getElementById("new-game-btn");
@@ -11,6 +13,9 @@ const oScore = document.getElementById("o-score");
 const popupEl = document.getElementById("popup-el");
 const popupClose = document.getElementById("popup-close");
 const winnerEl = document.getElementById("winner-el");
+
+const emojis = ["🥳", "🤗", "🫡", "🤩", "😍", "🙌", "👏", "🙏", "💅", "🙆‍♀️", "💁‍♀️", "👀", "✨", "🏆", "🔥", "💃", "🎉"];
+let randomEmoji = "";
 
 const winConditions = [
     [0, 1, 2],
@@ -27,21 +32,28 @@ let currentPlayer = "X";
 let board = Array(9).fill(null);
 let isOver = false;
 
-let xWins = localStorage.getItem("X");
-let oWins = localStorage.getItem("O");
+render();
 
 for (let i = 0; i < squares.length; i++) {
     squares[i].addEventListener("click", function () {
+        squares[i].classList.add("no-hover");
         if (squares[i].textContent === "" && isOver === false) {
             squares[i].textContent = currentPlayer;
             setColor(squares[i]);
 
             board[i] = currentPlayer;
-            console.log(board);
 
             checkWin();
+            if (!isOver) {
+                checkTie();
+            }
 
             currentPlayer = getCurrentPlayer(currentPlayer);
+        }
+        if (isOver) {
+            for (let j = 0; j < squares.length; j++) {
+                squares[j].classList.add("no-hover");
+            }
         }
     });
 }
@@ -51,17 +63,43 @@ function checkWin() {
         if (board[winCondition[0]] === board[winCondition[1]] && board[winCondition[1]] === board[winCondition[2]] && board[winCondition[0]] !== null) {
             isOver = true;
 
-            if (currentPlayer === "X") {
-                xWins++;
-                localStorage.setItem("X", JSON.stringify(xWins));
-            } else {
-                oWins++;
-                localStorage.setItem("O", JSON.stringify(oWins));
-            }
+            localStorage.setItem(currentPlayer, JSON.stringify(Number(localStorage.getItem(currentPlayer)) + 1));
+
+            popup(true);
             render();
         }
     }
 }
+
+function checkTie() {
+    for (let i = 0; i < board.length; i++) {
+        if (board[i] === null) {
+            return;
+        }
+    }
+    isOver = true;
+    popup(false);
+}
+
+function getRandomEmoji() {
+    randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+    return randomEmoji;
+}
+
+function popup(isWinner) {
+    popupEl.style.display = "block";
+    if (isWinner) {
+        winnerEl.textContent = `The winner is: ${currentPlayer} ${getRandomEmoji()}`;
+    } else {
+        winnerEl.textContent = `It's a tie! ${getRandomEmoji()}`;
+    }
+}
+
+function closePopup() {
+    popupEl.style.display = "none";
+}
+
+popupClose.addEventListener("click", closePopup);
 
 function render() {
     if (localStorage.getItem("X") === null) {
@@ -74,16 +112,16 @@ function render() {
     oScore.textContent = localStorage.getItem("O");
 }
 
-render();
-
 newGameBtn.addEventListener("click", function () {
     for (let i = 0; i < squares.length; i++) {
         squares[i].textContent = "";
+        squares[i].classList.remove("no-hover");
     }
+    closePopup();
+
     currentPlayer = "X";
     isOver = false;
     board = Array(9).fill(null);
-    console.log(board);
 });
 
 clearBtn.addEventListener("click", function () {
@@ -100,8 +138,8 @@ function getCurrentPlayer(player) {
 
 function setColor (square) {
     if (currentPlayer === "X") {
-        square.style.color = "#62B2D7";
+        square.style.color = "#ff006e";
     } else {
-        square.style.color = "#ffe66d";
+        square.style.color = "#ffbe0b";
     }
 }

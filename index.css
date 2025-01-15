@@ -43,7 +43,7 @@ body {
     background: #1a181b;
     color: #F7FFF7;
     font-size: 3rem;
-    border: 2px solid #F7FFF7;
+    border: 2px solid #ff006e;
     padding: 10px 20px;
     border-radius: 10px;
 }
@@ -60,18 +60,18 @@ body {
     width: inherit;
 }
 
-.blue {
-    color: #62B2D7;
+.pink {
+    color: #ff006e;
 }
 
 .yellow {
-    color: #ffe66d;
+    color: #ffbe0b;
 }
 
 #popup-el {
     z-index: 1;
     width: 500px;
-    height: 350px;
+    height: 250px;
     background: #F7FFF7;
     border-radius: 20px;
     position: fixed;
@@ -79,6 +79,8 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
     margin-inline: auto;
+    display: none;
+    border: 10px solid #ff006e;
 }
 
 #popup-close {
@@ -93,5 +95,13 @@ body {
 
 #winner-el {
     color: #2c292e;
-    font-size: 3rem;
+    font-size: 2rem;
+}
+
+.square:hover {
+    background: #373438;
+}
+
+.no-hover {
+    pointer-events: none;
 }
