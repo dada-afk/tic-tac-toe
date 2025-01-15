@@ -38,7 +38,7 @@ for (let i = 0; i < squares.length; i++) {
     squares[i].addEventListener("click", function () {
         squares[i].classList.add("no-hover");
         if (squares[i].textContent === "" && isOver === false) {
-            squares[i].textContent = currentPlayer;
+            squares[i].innerHTML = `<span class="animate">${currentPlayer}</span>`;
             setColor(squares[i]);
 
             board[i] = currentPlayer;
@@ -67,6 +67,7 @@ function checkWin() {
 
             popup(true);
             render();
+            runAnimation();
         }
     }
 }
@@ -141,5 +142,25 @@ function setColor (square) {
         square.style.color = "#ff006e";
     } else {
         square.style.color = "#ffbe0b";
+    }
+}
+
+const symbolBounce = [
+    { transform: 'translate(0, 0)', color: '#e4c1f9' }, 
+    { transform: 'translate(0, -20px)', color: '#8338ec' },
+    { transform: 'translate(0, 0)', color: '#9b5de5' }
+  ];
+  
+const bounceTiming = {
+    duration: 850,
+    iterations: 5
+}
+  
+function runAnimation () {
+    const animateEls = document.getElementsByClassName("animate");
+    for (let animateEl of animateEls) {
+        if (animateEl.textContent === currentPlayer) {
+            animateEl.animate(symbolBounce, bounceTiming);
+        }
     }
 }

@@ -75,12 +75,12 @@ body {
     background: #F7FFF7;
     border-radius: 20px;
     position: fixed;
-    left: 50%;
+    left: 8%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(0, -50%);
     margin-inline: auto;
     display: none;
-    border: 10px solid #ff006e;
+    border: 10px solid #8338ec;
 }
 
 #popup-close {
